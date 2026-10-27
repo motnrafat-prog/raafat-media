@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111b">
+  <meta name="description" content="Raafat Media — معرض أعمال رأفت في صناعة الفيديو والتصوير والتصميم والإبداع باستخدام الذكاء الاصطناعي.">
+  <title>Raafat Media | Creative Video & AI</title>
+  <link rel="icon" href="assets/logo.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Raafat Media home">
+      <img src="assets/logo.jpg" alt="Raafat Media logo">
+      <span><b>RAAFAT <i>MEDIA</i></b><small data-i18n="tagline">فيديو إبداعي وذكاء اصطناعي</small></span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav id="mainNav">
+      <a href="#home" data-i18n="navHome">الرئيسية</a>
+      <a href="#portfolio" data-i18n="navWork">الأعمال</a>
+      <a href="#about" data-i18n="navAbout">من أنا</a>
+      <a href="#contact" data-i18n="navContact">تواصل</a>
+    </nav>
+    <button class="language-switch" id="languageSwitch" aria-label="Switch language">EN</button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-glow glow-one"></div><div class="hero-glow glow-two"></div>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot"></span><span data-i18n="eyebrow">مساحة للإبداع وصناعة القصص البصرية</span></p>
+        <h1 data-i18n="heroTitle">أحوّل الأفكار إلى<br><span>تجارب بصرية</span> مؤثرة.</h1>
+        <p class="hero-description" data-i18n="heroText">أنا رأفت، أعمل في صناعة المحتوى المرئي والتصوير والمونتاج، وأستكشف إمكانات الذكاء الاصطناعي لصناعة أفكار جديدة.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#portfolio" data-i18n="viewWork">استكشف الأعمال <span>↙</span></a>
+          <a class="button button-ghost" href="#about" data-i18n="aboutMe">تعرّف عليّ</a>
+        </div>
+        <div class="hero-note"><span class="note-line"></span><span data-i18n="heroNote">التفاصيل تصنع الفرق.</span></div>
+      </div>
+      <div class="hero-art">
+        <div class="hero-image-frame"><img src="assets/child-photo-1.jpg" alt="عينة من أعمال التصوير الفوتوغرافي"></div>
+        <div class="floating-chip chip-top"><span class="chip-icon">✳</span><span data-i18n="chipAI">إبداع مدعوم بالذكاء الاصطناعي</span></div>
+        <div class="floating-chip chip-bottom"><span class="play-symbol">▶</span><span><b data-i18n="chipVideo">قصة في كل إطار</b><small>VIDEO · PHOTO · AI</small></span></div>
+        <div class="art-ring"></div>
+      </div>
+      <a class="scroll-cue" href="#portfolio"><span></span><span data-i18n="scroll">اكتشف الأعمال</span></a>
+    </section>
+
+    <section class="portfolio section-wrap" id="portfolio">
+      <div class="section-heading">
+        <div><p class="eyebrow section-eyebrow" data-i18n="selected">مختارات من أعمالي</p><h2 data-i18n="portfolioTitle">أعمال <span>تتحدث عن نفسها.</span></h2></div>
+        <p class="section-intro" data-i18n="portfolioIntro">مجموعة من التجارب البصرية التي تجمع بين الملاحظة، والفكرة، والتنفيذ.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Portfolio filters">
+        <button class="filter active" data-filter="all" data-i18n="filterAll">الكل</button>
+        <button class="filter" data-filter="photo" data-i18n="filterPhoto">تصوير</button>
+        <button class="filter" data-filter="design" data-i18n="filterDesign">تصميم ورسوم</button>
+        <button class="filter" data-filter="video" data-i18n="filterVideo">فيديو</button>
+      </div>
+      <div class="portfolio-grid">
+        <article class="work-card work-tall" data-category="photo">
+          <button class="media-open" data-image="assets/child-photo-1.jpg" data-title-ar="جلسة تصوير خارجية — 01" data-title-en="Outdoor Portrait — 01" aria-label="Open photography project"><img src="assets/child-photo-1.jpg" alt="صورة شخصية في الطبيعة" loading="lazy"><span class="view-mark">↗</span></button>
+          <div class="work-meta"><div><span class="work-category" data-i18n="photoLabel">تصوير فوتوغرافي</span><h3 data-i18n="photoOne">لحظة في الطبيعة — 01</h3></div><span class="work-number">01</span></div>
+        </article>
+        <article class="work-card" data-category="photo">
+          <button class="media-open" data-image="assets/child-photo-2.jpg" data-title-ar="جلسة تصوير خارجية — 02" data-title-en="Outdoor Portrait — 02" aria-label="Open photography project"><img src="assets/child-photo-2.jpg" alt="صورة فوتوغرافية خارجية" loading="lazy"><span class="view-mark">↗</span></button>
+          <div class="work-meta"><div><span class="work-category" data-i18n="photoLabel">تصوير فوتوغرافي</span><h3 data-i18n="photoTwo">لحظة في الطبيعة — 02</h3></div><span class="work-number">02</span></div>
+        </article>
+        <article class="work-card" data-category="design">
+          <button class="media-open" data-image="assets/illustration.jpg" data-title-ar="رسم توضيحي — دراسة شخصية" data-title-en="Illustration — Character Study" aria-label="Open illustration project"><img src="assets/illustration.jpg" alt="رسمة كرتونية بالأبيض والأسود" loading="lazy"><span class="view-mark">↗</span></button>
+          <div class="work-meta"><div><span class="work-category" data-i18n="designLabel">رسم وتصميم</span><h3 data-i18n="illustrationTitle">دراسة شخصية مرسومة</h3></div><span class="work-number">03</span></div>
+        </article>
+        <article class="work-card video-card" data-category="video">
+          <div class="video-frame"><video controls preload="metadata" playsinline><source src="assets/video-1.mp4" type="video/mp4">Your browser does not support video.</video><span class="video-tag">VIDEO 01</span></div>
+          <div class="work-meta"><div><span class="work-category" data-i18n="videoLabel">إنتاج فيديو</span><h3 data-i18n="videoOne">مشروع فيديو — 01</h3></div><span class="work-number">04</span></div>
+        </article>
+        <article class="work-card video-card" data-category="video">
+          <div class="video-frame"><video controls preload="metadata" playsinline><source src="assets/video-2.mp4" type="video/mp4">Your browser does not support video.</video><span class="video-tag">VIDEO 02</span></div>
+          <div class="work-meta"><div><span class="work-category" data-i18n="videoLabel">إنتاج فيديو</span><h3 data-i18n="videoTwo">مشروع فيديو — 02</h3></div><span class="work-number">05</span></div>
+        </article>
+        <article class="work-card video-card" data-category="video">
+          <div class="video-frame"><video controls preload="metadata" playsinline><source src="assets/video-3.mp4" type="video/mp4">Your browser does not support video.</video><span class="video-tag">VIDEO 03</span></div>
+          <div class="work-meta"><div><span class="work-category" data-i18n="videoLabel">إنتاج فيديو</span><h3 data-i18n="videoThree">مشروع فيديو — 03</h3></div><span class="work-number">06</span></div>
+        </article>
+      </div>
+      <p class="portfolio-footnote" data-i18n="portfolioFootnote">هذه نسخة أولية من المعرض؛ يمكن لاحقًا إضافة وصف كل مشروع والأدوات المستخدمة ودورك فيه من لوحة الإدارة.</p>
+    </section>
+
+    <section class="about-section" id="about">
+      <div class="about-grid section-wrap">
+        <div class="about-visual"><div class="about-logo"><img src="assets/logo.jpg" alt="Raafat Media"></div><div class="about-signature"><img src="assets/signature.jpg" alt="توقيع رأفت"></div><span class="about-orbit orbit-a"></span><span class="about-orbit orbit-b"></span></div>
+        <div class="about-copy"><p class="eyebrow section-eyebrow" data-i18n="aboutEyebrow">خلف الكاميرا وخلف الفكرة</p><h2 data-i18n="aboutTitle">أنا رأفت،<br><span>أصنع وأوثّق وأطوّر.</span></h2><p data-i18n="aboutText">أهتم بصناعة المحتوى المرئي، والتصوير الفوتوغرافي، وتحرير الفيديو، وتطوير أفكار إبداعية تستفيد من أدوات الذكاء الاصطناعي. هذه المساحة توثّق أعمالي وتطوّري وتجربتي.</p>
+          <div class="skill-list"><span>Creative Video</span><span>Photography</span><span>Video Editing</span><span>AI Content</span><span>Visual Design</span></div>
+          <a class="text-link" href="#contact" data-i18n="connect">لنتواصل ونتبادل الأفكار <span>↙</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section section-wrap" id="contact">
+      <p class="eyebrow section-eyebrow" data-i18n="contactEyebrow">لديك فكرة؟</p>
+      <h2 data-i18n="contactTitle">لنصنع شيئًا <span>يستحق المشاهدة.</span></h2>
+      <p data-i18n="contactText">للتعاون أو الاستفسار أو الحديث عن مشروع إبداعي، يسعدني التواصل.</p>
+      <a class="button button-primary contact-button" href="https://wa.me/972595173483" target="_blank" rel="noopener noreferrer"><span data-i18n="whatsapp">تواصل عبر واتساب</span><span>↗</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer"><a class="footer-brand" href="#home">RAAFAT <span>MEDIA</span></a><p data-i18n="footerText">معرض أعمال إبداعية — فيديو، تصوير، تصميم وذكاء اصطناعي.</p><span>© <span id="year"></span> Raafat Media</span></footer>
+
+  <dialog id="lightbox" class="lightbox"><button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button><img id="lightboxImage" src="" alt=""><p id="lightboxTitle"></p></dialog>
+  <script src="script.js"></script>
+</body>
+</html>
