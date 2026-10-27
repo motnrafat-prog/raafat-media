@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#07111b">
+  <title>لوحة إدارة Raafat Media</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body{min-height:100vh;background:#07111b;color:#edf5ff}.admin-wrap{max-width:1000px;margin:auto;padding:28px 18px 60px}.admin-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}.admin-head h1{font-size:clamp(1.5rem,4vw,2.2rem);margin:0}.admin-sub{color:#a8b9cc}.admin-panel{background:#0d1b2a;border:1px solid #23384e;border-radius:18px;padding:22px;margin:18px 0}.admin-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.admin-form .wide{grid-column:1/-1}.admin-form label{display:grid;gap:7px;color:#c7d6e6;font-size:.94rem}.admin-form input,.admin-form textarea,.admin-form select{width:100%;box-sizing:border-box;border:1px solid #304960;border-radius:10px;background:#07111b;color:#fff;padding:12px;font:inherit}.admin-form textarea{min-height:95px;resize:vertical}.admin-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.admin-btn{border:1px solid #31516d;border-radius:10px;padding:10px 16px;background:#102a40;color:#fff;font:inherit;cursor:pointer}.admin-btn.primary{background:#1a9ddd;border-color:#1a9ddd;color:#04101b;font-weight:700}.admin-btn.danger{border-color:#8d3b49;color:#ffb8c0}.admin-btn:disabled{opacity:.55;cursor:wait}.status{padding:12px 14px;border-radius:10px;background:#102a40;margin:14px 0;white-space:pre-wrap;overflow-wrap:anywhere}.status.error{background:#3a1820;color:#ffd9dd}.project-list{display:grid;gap:12px}.project-row{display:flex;align-items:center;gap:14px;border:1px solid #23384e;border-radius:12px;padding:12px}.project-thumb{width:82px;height:68px;object-fit:cover;background:#07111b;border-radius:8px;flex-shrink:0}.project-info{flex:1;min-width:0}.project-info h3{margin:0 0 5px;font-size:1rem}.project-info p{margin:0;color:#a8b9cc;font-size:.88rem}.project-actions{display:flex;gap:8px;flex-wrap:wrap}.pill{display:inline-block;border:1px solid #31516d;border-radius:30px;padding:3px 8px;font-size:.75rem;margin-top:6px}.muted{color:#a8b9cc;font-size:.9rem}.hidden{display:none!important}@media(max-width:640px){.admin-form{grid-template-columns:1fr}.admin-form .wide{grid-column:auto}.project-row{align-items:flex-start;flex-wrap:wrap}.project-actions{width:100%}.admin-head{align-items:flex-start;flex-direction:column}}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+</head>
+<body>
+  <main class="admin-wrap">
+    <header class="admin-head"><div><h1>لوحة إدارة <span style="color:#41c7ff">Raafat Media</span></h1><p class="admin-sub">إدارة المشاريع المنشورة في معرض الأعمال</p></div><a class="button button-ghost" href="index.html">عرض الموقع ↗</a></header>
+    <div id="status" class="status" role="status">جارٍ التحقق من إعدادات الربط…</div>
+    <section id="loginPanel" class="admin-panel">
+      <h2>تسجيل دخول المدير</h2><p class="muted">استخدم البريد وكلمة المرور اللذين أضفتهما في Supabase Authentication. إنشاء حساب وحده لا يمنح صلاحية المدير.</p>
+      <form id="loginForm" class="admin-form"><label>البريد الإلكتروني<input id="email" type="email" autocomplete="username" required></label><label>كلمة المرور<input id="password" type="password" autocomplete="current-password" required></label><div class="wide admin-actions"><button class="admin-btn primary" type="submit">تسجيل الدخول</button></div></form>
+    </section>
+    <section id="dashboard" class="hidden">
+      <section class="admin-panel"><div class="admin-head"><div><h2 id="formHeading">إضافة مشروع جديد</h2><p class="muted">يمكن رفع صورة أو فيديو من جهازك، ثم نشر المشروع للزوار.</p></div><button id="logoutBtn" class="admin-btn" type="button">تسجيل الخروج</button></div>
+        <form id="projectForm" class="admin-form">
+          <input id="projectId" type="hidden">
+          <label>عنوان المشروع<input id="title" maxlength="160" required></label>
+          <label>التصنيف<select id="category"><option value="photo">تصوير</option><option value="design">تصميم ورسوم</option><option value="video">فيديو</option><option value="ai">ذكاء اصطناعي</option></select></label>
+          <label class="wide">وصف المشروع<textarea id="description" maxlength="3000"></textarea></label>
+          <label>صورة للمشروع (اختياري)<input id="imageFile" type="file" accept="image/*"></label>
+          <label>فيديو للمشروع (اختياري)<input id="videoFile" type="file" accept="video/mp4,video/webm,video/quicktime"></label>
+          <label class="wide">أو رابط صورة مباشر<input id="imageUrl" type="url" placeholder="https://…"></label>
+          <label class="wide">أو رابط فيديو مباشر<input id="videoUrl" type="url" placeholder="https://…"></label>
+          <label class="wide"><span><input id="published" type="checkbox" style="width:auto;margin-left:8px"> نشر المشروع على الموقع العام</span></label>
+          <div class="wide admin-actions"><button id="saveBtn" class="admin-btn primary" type="submit">حفظ المشروع</button><button id="cancelEdit" class="admin-btn hidden" type="button">إلغاء التعديل</button><button id="refreshBtn" class="admin-btn" type="button">تحديث القائمة</button></div>
+        </form>
+      </section>
+      <section class="admin-panel"><h2>المشاريع</h2><p class="muted">المشاريع غير المنشورة تظهر هنا للمدير فقط.</p><div id="projectList" class="project-list"></div></section>
+    </section>
+  </main>
+<script>
+(() => {
+ const $=id=>document.getElementById(id); const status=$('status'); let client=null; let currentUser=null;
+ function message(text,error=false){status.textContent=text;status.classList.toggle('error',error);status.classList.remove('hidden')}
+ function configured(){return window.RAAFAT_SUPABASE_URL && window.RAAFAT_SUPABASE_URL.startsWith('https://') && window.RAAFAT_SUPABASE_PUBLISHABLE_KEY && !window.RAAFAT_SUPABASE_PUBLISHABLE_KEY.includes('PASTE_')}
+ if(!window.supabase || !configured()){message('أكمل إعداد config.js أولًا: ضع Project URL وPublishable key من Supabase. لا تضع Secret أو service_role key.',true);$('loginForm').classList.add('hidden');return;}
+ client=window.supabase.createClient(window.RAAFAT_SUPABASE_URL,window.RAAFAT_SUPABASE_PUBLISHABLE_KEY);
+ const loginPanel=$('loginPanel'),dashboard=$('dashboard');
+ async function requireAdmin(){const {data:{session}}=await client.auth.getSession();if(!session){currentUser=null;loginPanel.classList.remove('hidden');dashboard.classList.add('hidden');return false;}currentUser=session.user;
+   const {data,error}=await client.rpc('is_admin'); if(error||data!==true){await client.auth.signOut();loginPanel.classList.remove('hidden');dashboard.classList.add('hidden');message('تم تسجيل الدخول لكن هذا الحساب ليس ضمن قائمة المديرين. تحقق من User UID الذي أضفته في admin_users.',true);return false;}
+   loginPanel.classList.add('hidden');dashboard.classList.remove('hidden');message('تم تسجيل الدخول بصلاحيات المدير.');await loadProjects();return true;}
+ $('loginForm').addEventListener('submit',async e=>{e.preventDefault();message('جارٍ تسجيل الدخول…');const {error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){message('تعذر تسجيل الدخول: '+error.message,true);return;}await requireAdmin();});
+ $('logoutBtn').addEventListener('click',async()=>{await client.auth.signOut();await requireAdmin();message('تم تسجيل الخروج.');});
+ function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+ async function loadProjects(){const list=$('projectList');list.innerHTML='<p class="muted">جارٍ تحميل المشاريع…</p>';const {data,error}=await client.from('projects').select('*').order('created_at',{ascending:false});if(error){list.innerHTML='';message('تعذر تحميل المشاريع: '+error.message,true);return;}if(!data.length){list.innerHTML='<p class="muted">لا توجد مشاريع بعد. أضف مشروعك الأول من النموذج أعلاه.</p>';return;}list.innerHTML=data.map(p=>`<article class="project-row"><img class="project-thumb" src="${esc(p.image_url||'assets/logo.jpg')}" alt=""><div class="project-info"><h3>${esc(p.title)}</h3><p>${esc(p.description||'بدون وصف')}</p><span class="pill">${p.published?'منشور':'مسودة'} · ${esc(p.category)}</span></div><div class="project-actions"><button class="admin-btn" data-edit="${p.id}">تعديل</button><button class="admin-btn danger" data-delete="${p.id}">حذف</button></div></article>`).join('');list.querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click',()=>editProject(data.find(p=>String(p.id)===b.dataset.edit))));list.querySelectorAll('[data-delete]').forEach(b=>b.addEventListener('click',()=>deleteProject(data.find(p=>String(p.id)===b.dataset.delete))));}
+ function editProject(p){$('projectId').value=p.id;$('title').value=p.title||'';$('description').value=p.description||'';$('category').value=p.category||'design';$('imageUrl').value=p.image_url||'';$('videoUrl').value=p.video_url||'';$('published').checked=!!p.published;$('imageFile').value='';$('videoFile').value='';$('formHeading').textContent='تعديل المشروع';$('saveBtn').textContent='حفظ التعديلات';$('cancelEdit').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
+ function resetForm(){$('projectForm').reset();$('projectId').value='';$('formHeading').textContent='إضافة مشروع جديد';$('saveBtn').textContent='حفظ المشروع';$('cancelEdit').classList.add('hidden');}
+ $('cancelEdit').addEventListener('click',resetForm);$('refreshBtn').addEventListener('click',loadProjects);
+ async function uploadFile(file){if(!file)return null;const allowed=['image/jpeg','image/png','image/webp','image/gif','video/mp4','video/webm','video/quicktime'];if(!allowed.includes(file.type))throw new Error('نوع الملف غير مدعوم. استخدم صورة أو MP4/WebM.');if(file.size>50*1024*1024)throw new Error('حجم الملف أكبر من 50 ميغابايت.');const ext=(file.name.split('.').pop()||'bin').toLowerCase().replace(/[^a-z0-9]/g,'');const path=`${currentUser.id}/${Date.now()}-${crypto.randomUUID()}.${ext}`;const {error}=await client.storage.from('project-media').upload(path,file,{upsert:false,contentType:file.type});if(error)throw error;return client.storage.from('project-media').getPublicUrl(path).data.publicUrl;}
+ $('projectForm').addEventListener('submit',async e=>{e.preventDefault();const btn=$('saveBtn');btn.disabled=true;try{message('جارٍ حفظ المشروع ورفع الملفات…');let imageUrl=$('imageUrl').value.trim(),videoUrl=$('videoUrl').value.trim();const image=await uploadFile($('imageFile').files[0]);if(image)imageUrl=image;const video=await uploadFile($('videoFile').files[0]);if(video)videoUrl=video;const payload={title:$('title').value.trim(),description:$('description').value.trim(),category:$('category').value,image_url:imageUrl,video_url:videoUrl,published:$('published').checked};const id=$('projectId').value;const result=id?await client.from('projects').update(payload).eq('id',id):await client.from('projects').insert(payload);if(result.error)throw result.error;message(id?'تم تحديث المشروع بنجاح.':'تمت إضافة المشروع بنجاح.');resetForm();await loadProjects();}catch(err){message('لم يتم الحفظ: '+(err.message||String(err)),true);}finally{btn.disabled=false;}});
+ async function deleteProject(p){if(!p||!confirm(`هل تريد حذف المشروع «${p.title}»؟`))return;const {error}=await client.from('projects').delete().eq('id',p.id);if(error){message('تعذر حذف المشروع: '+error.message,true);return;}message('تم حذف المشروع.');await loadProjects();}
+ client.auth.onAuthStateChange(()=>{setTimeout(()=>requireAdmin(),0)});requireAdmin();
+})();
+</script>
+</body></html>

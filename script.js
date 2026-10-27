@@ -27,3 +27,38 @@ const lightbox=document.getElementById('lightbox');
 document.querySelectorAll('.media-open').forEach(button=>button.addEventListener('click',()=>{document.getElementById('lightboxImage').src=button.dataset.image;document.getElementById('lightboxTitle').textContent=currentLanguage==='ar'?button.dataset.titleAr:button.dataset.titleEn;lightbox.showModal()}));
 document.getElementById('lightboxClose').addEventListener('click',()=>lightbox.close());lightbox.addEventListener('click',e=>{if(e.target===lightbox)lightbox.close()});
 document.getElementById('year').textContent=new Date().getFullYear();
+
+
+// Load published projects managed through the protected admin dashboard.
+(async function loadManagedProjects(){
+  const url=window.RAAFAT_SUPABASE_URL;
+  const key=window.RAAFAT_SUPABASE_PUBLISHABLE_KEY;
+  if(!window.supabase || !url || !url.startsWith('https://') || !key || key.includes('PASTE_')) return;
+  try {
+    const client=window.supabase.createClient(url,key);
+    const {data,error}=await client.from('projects').select('id,title,description,category,image_url,video_url,published,created_at').eq('published',true).order('created_at',{ascending:false});
+    if(error || !Array.isArray(data) || !data.length) return;
+    const grid=document.querySelector('.portfolio-grid');
+    if(!grid) return;
+    const esc=value=>String(value||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    data.forEach((project,index)=>{
+      const category=['photo','design','video','ai'].includes(project.category)?project.category:'design';
+      const title=esc(project.title);
+      const description=esc(project.description);
+      let media='';
+      if(project.video_url){
+        media=`<div class="video-frame"><video controls preload="metadata" playsinline src="${esc(project.video_url)}"></video><span class="video-tag">VIDEO</span></div>`;
+      } else if(project.image_url){
+        media=`<a class="media-open" href="${esc(project.image_url)}" target="_blank" rel="noopener noreferrer" aria-label="${currentLanguage==='ar'?'فتح العمل':'Open project'}"><img src="${esc(project.image_url)}" alt="${title}" loading="lazy"><span class="view-mark">↗</span></a>`;
+      } else {
+        media='<div class="video-frame" style="display:grid;place-items:center;min-height:180px;color:#a8b9cc">RAAFAT MEDIA</div>';
+      }
+      const card=document.createElement('article');
+      card.className='work-card'+(project.video_url?' video-card':'');
+      card.dataset.category=category;
+      card.dataset.managedProject=String(project.id);
+      card.innerHTML=`${media}<div class="work-meta"><div><span class="work-category">${esc(category==='photo'?'تصوير':category==='video'?'فيديو':category==='ai'?'ذكاء اصطناعي':'تصميم ورسوم')}</span><h3>${title}</h3>${description?`<p class="managed-description">${description}</p>`:''}</div><span class="work-number">${String(index+7).padStart(2,'0')}</span></div>`;
+      grid.appendChild(card);
+    });
+  } catch(e) { /* Keep the static portfolio available if the backend is unavailable. */ }
+})();
